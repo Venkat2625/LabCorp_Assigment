@@ -1,0 +1,119 @@
+<div class="container">
+  <h2 style="color: #002147; font-weight: bold; margin-bottom: 30px">
+    TimeSheet Management
+  </h2>
+  <table class="table table-hover">
+    <thead>
+      <tr style="background-color: #002147; color: #fff">
+        <th>Employee Id</th>
+        <th>Employee Name</th>
+        <th>Employee Type</th>
+        <th>Work days logged</th>
+        <th>Vacations balance</th>
+        <th>Log Work</th>
+        <th>Take Vacation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.type }}</td>
+        <td>{{ employee.workDays }}</td>
+        <td>{{ employee.vacationDays }}</td>
+        <td>
+          <button
+            class="btn btn-primary btn-lg"
+            (click)="open(content, employee)"
+          >
+            Log Work
+          </button>
+        </td>
+        <td>
+          <button
+            class="btn btn-warning btn-lg"
+            (click)="open(contentvacation, employee)"
+          >
+            Take Vacation
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Log Work</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"> X </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #logWorkForm="ngForm">
+      <div class="form-group">
+        <label for="logwork"> Log Work </label>
+        <div class="input-group">
+          <input
+            id="logwork"
+            class="form-control"
+            placeholder="Log work"
+            name="logwork"
+            type="number"
+            min="1"
+            max="260"
+            [(ngModel)]="workDays"
+            required
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-dark" (click)="logWork()">
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #contentvacation let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Take Vacation</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true"> X </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #vacationForm="ngForm">
+      <div class="form-group">
+        <label for="vacation"> Take vacation </label>
+        <div class="input-group">
+          <input
+            id="vacation"
+            class="form-control"
+            placeholder="Vacations"
+            name="vacation"
+            type="number"
+            [(ngModel)]="vacations"
+            required
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="takeVacation()">
+      Save
+    </button>
+  </div>
+</ng-template>
